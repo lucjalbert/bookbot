@@ -5,8 +5,9 @@ def main():
     book = get_book_text(book_path)
     word_count = count_words(book)
     character_amount = count_characters(book)
-    sorted_characters = dict_to_list(character_amount)
+    sorted_characters = sort_dict(character_amount)
 
+    # prints a formatted report of the results
     print(f"--- Analysis of book: {book_path} ---")
     print(f" Your book contains: {word_count} words.")
 
@@ -16,6 +17,8 @@ def main():
     print(f"--- Analysis successful ---")
 
 
+# takes a path to a text file and returns a string with its content
+# if the file path is incorrect or empty, prints error and terminates the program
 def get_book_text(path):
     try:
         with open(path) as f:
@@ -25,11 +28,14 @@ def get_book_text(path):
         sys.exit()
 
 
+# takes a string and turns it into a list of words before counting them and returning the amount
 def count_words(book):
     words = book.split()
     return len(words)
 
 
+# takes a string and returns a dictionary containing the amount of each character it contains
+# upper and lower case are counted as the same character and punctuation is excluded
 def count_characters(book):
     book_lowered = book.lower()
     dict_char = {}
@@ -39,7 +45,8 @@ def count_characters(book):
     return dict_char
 
 
-def dict_to_list(dict_char):
+# sorts a dictionairy based on the value of each key in descending order 
+def sort_dict(dict_char):
     dict_sorted = sorted(dict_char.items(), key=lambda item: item[1], reverse=True)
     return dict_sorted
 
