@@ -1,31 +1,66 @@
-import sys
+import os
+import tkinter as tk
+from tkinter import filedialog
 
 def main():
-    book_path = input("Enter the path to a book to analyse: ")
-    book = get_book_text(book_path)
-    word_count = count_words(book)
-    character_amount = count_characters(book)
+    text, name = get_book_text()
+    word_count = count_words(text)
+    character_amount = count_characters(text)
     sorted_characters = sort_dict(character_amount)
 
     # prints a formatted report of the results
-    print(f"--- Analysis of book: {book_path} ---")
-    print(f" Your book contains: {word_count} words.")
+    print(f"--- Analysis of book: {name} ---")
+    print(f" Your book contains: {word_count:,} words.")
 
     for key, count in sorted_characters:
-        print(f"The letter '{key}' was found {count} times")
+        print(f"The letter '{key}' was found {count:,} times")
     
     print(f"--- Analysis successful ---")
 
 
-# takes a path to a text file and returns a string with its content
-# if the file path is incorrect or empty, prints error and terminates the program
-def get_book_text(path):
+# asks the user for their preferred method of input and saves the result as 
+def get_book_text():
+    while True:
+        print("Launching Bookbot... please give me a book to analyse:")
+        print("1. Enter a file path (Press '1')")
+        print("2. Open the file explorer (Press '2')")
+
+        choice = input("Your choice: ").strip().lower()
+
+        if choice == '1':
+            path = input("Please enter the file path: ").strip()
+            content, name = read_file(path)
+            if content:
+                return content, name
+
+        elif choice == '2':
+            root = tk.Tk()
+            root.withdraw()
+            path = filedialog.askopenfilename()
+
+            if path:
+                content, name = read_file(path)
+                if content:
+                    return content, name
+            else:
+                print("No file was selected.")
+
+        else:
+            print("Invalid choice. Please try again.")
+
+def read_file(path):
     try:
-        with open(path) as f:
-            return f.read()
-    except FileNotFoundError as e:
+        with open(path, 'rb') as f:
+            try:
+                content = f.read().decode('utf-8')
+                return content, os.path.basename(path)
+            except UnicodeDecodeError:
+                print("Incorrect file type, please use text files such as: .txt, .md, or .csv")
+                return None, None
+    except FileNotFoundError:
         print("File path incorrect or missing")
-        sys.exit()
+        return None, None
+
 
 
 # takes a string and turns it into a list of words before counting them and returning the amount
