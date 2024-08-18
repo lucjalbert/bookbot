@@ -6,12 +6,13 @@ def main():
     while True:
         content, name = get_book_text()
         word_count = count_words(content)
-        character_amount = count_characters(content)
+        character_amount, character_total = count_characters(content)
         sorted_characters = sort_dict(character_amount)
 
         # print a formatted report of the results
         print(f"--- Analysis of book: {name} ---")
         print(f"Your book contains: {word_count:,} words.")
+        print(f"Your book contains: {character_total:,} letters.")
 
         for key, count in sorted_characters:
             print(f"The letter '{key}' was found {count:,} times")
@@ -92,11 +93,13 @@ def count_words(book):
 # upper and lower case are counted as the same character and punctuation is excluded
 def count_characters(book):
     book_lowered = book.lower()
+    characters = 0
     dict_char = {}
     for c in book_lowered:
         if c.isalpha():
             dict_char[c] = dict_char.get(c, 0) + 1
-    return dict_char
+            characters += 1
+    return dict_char, characters
 
 
 # sort a dictionairy based on its values in descending order 
