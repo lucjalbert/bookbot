@@ -34,7 +34,7 @@ def get_book_text():
         print("1. Entering a file path (Type '1')")
         print("2. Browsing your files (Type '2')")
 
-        # ask the user which method they prefer and stores the input
+        # ask the user which method they prefer and store the input
         choice = input("Your choice: ").strip().lower()
 
         if choice == "1":
@@ -55,7 +55,9 @@ def get_book_text():
                 if content:
                     return content, name
             else:
+                print("=====================")
                 print("No file was selected.")
+                print("=====================")
 
         else:
             print("=================================")
@@ -89,8 +91,9 @@ def count_words(book):
     return len(words)
 
 
-# take a string and return a dictionary containing the amount of each character it contains
+# take a string and return a dictionary containing the amount of times each character is found
 # upper and lower case are counted as the same character and punctuation is excluded
+# also return the total amount of characters counted
 def count_characters(book):
     book_lowered = book.lower()
     characters = 0
@@ -111,10 +114,10 @@ def sort_dict(dict_char):
 # ask the user if they would like to use the program again
 def restart():
     while True:
-        new_book = input("Would you like to analyze another book ? (Type Y or N): ").strip().lower()
-        if new_book == "y":
+        use_again = input("Would you like to analyze another book ? (Type Y or N): ").strip().lower()
+        if use_again == "y":
             return True
-        elif new_book == "n":
+        elif use_again == "n":
             return False
         else:
             print("=================================")

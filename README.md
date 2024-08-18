@@ -17,7 +17,7 @@ Bookbot is a program written in python which takes in a large text file, reads i
 
 *Note that if you chose to manually type your file's path, you may copy-paste it from your file explorer but you will need to add the file's name manually.\
 ie: D:\documents\books - wrong\
-    D:\documents\books\my_book.txt - correct\
+    D:\documents\books\my_book.txt - correct
 
 ## Dependencies
 
