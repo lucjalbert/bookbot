@@ -1,11 +1,12 @@
 import os
 import tkinter as tk
 from tkinter import filedialog
+from stats import get_num_words
 
 def main():
     while True:
         content, name = get_book_text()
-        word_count = count_words(content)
+        word_count = get_num_words(content)
         character_amount, character_total = count_characters(content)
         sorted_characters = sort_dict(character_amount)
 
@@ -82,13 +83,6 @@ def read_file(path):
         print("File path incorrect or missing")
         print("==============================")
         return None, None
-
-
-
-# take a string and turn it into a list of words before counting them and returning the amount
-def count_words(book):
-    words = book.split()
-    return len(words)
 
 
 # take a string and return a dictionary containing the amount of times each character is found
