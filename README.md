@@ -1,5 +1,7 @@
 # Bookbot
 
+BookBot is my first [Boot.dev](https://www.boot.dev) project!
+
 ## A program designed to analyze large text files
 
 Bookbot is a program written in python which takes in a large text file, reads it and outputs the following information about it:
